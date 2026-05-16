@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERIX - Presentación Comercial</title>
+    
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Iconos Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fuentes de Google -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        body {
+            background-color: #030712;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Evita scroll en la presentación principal */
+        }
+        
+        .font-display { font-family: 'Rajdhani', sans-serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+        
+        .glow-text { 
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5), 0 0 20px rgba(0, 229, 255, 0.3); 
+        }
+        .glow-box { 
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.15), inset 0 0 10px rgba(0, 229, 255, 0.05); 
+            border: 1px solid rgba(0, 229, 255, 0.3); 
+        }
+        .glow-box-strong { 
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.3), inset 0 0 15px rgba(0, 229, 255, 0.1); 
+            border: 1px solid rgba(0, 229, 255, 0.6); 
+        }
+        
+        .slide { display: none; height: 100%; width: 100%; }
+        .slide.active { display: flex; }
+        
+        .slide-enter { 
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+        
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar for Chat */
+        .chat-scroll::-webkit-scrollbar { width: 4px; }
+        .chat-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .chat-scroll::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 10px; }
+    </style>
+</head>
+<body class="min-h-screen relative flex flex-col selection:bg-cyan-500/30">
+
+    <!-- Background Ambience -->
+    <div class="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-cyan-900/10 blur-[120px] pointer-events-none -z-10"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-cyan-600/5 blur-[120px] pointer-events-none -z-10"></div>
+    
+    <!-- Progress Bar -->
+    <div class="h-1 bg-slate-900 w-full fixed top-0 z-50">
+        <div id="progress-bar" class="h-full bg-cyan-400 transition-all duration-500 shadow-[0_0_10px_rgba(0,229,255,0.8)]" style="width: 10%;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="flex justify-between items-center  z-20 relative shrink-0">
+        <div class="flex items-center gap-3">
+            <!-- SVG Logo Inline -->
+            <img src="logoSerix.png" alt="logoSerix" style="width: 100px;">
+            <span class="font-display font-bold text-2xl tracking-widest text-white">SERIX</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <button onclick="toggleFullScreen()" class="text-slate-500 hover:text-cyan-400 transition-colors" title="Pantalla Completa">
+                <i data-lucide="maximize" class="w-5 h-5"></i>
+            </button>
+            <div id="slide-indicator" class="text-slate-500 text-sm font-mono bg-slate-900/50 px-3 py-1 rounded-full border border-slate-800">
+                1 / 10
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 relative z-10 flex items-center justify-center py-4 overflow-hidden h-full w-full">
+        
+        <!-- Slide 0: Portada -->
+        <div id="slide-0" class="slide active slide-enter flex-col items-center justify-center text-center w-full max-w-4xl mx-auto px-4">
+            <div class="mb-8 relative">
+                <div class="absolute inset-0 bg-cyan-500 blur-[80px] opacity-30 rounded-full"></div>
+                    <img src="logoSerix.png" alt="logoSerix" style="width: 300px;">
+                </svg>
+            </div>
+            <h1 class="font-display font-bold text-6xl md:text-8xl tracking-wider text-white mb-2 glow-text">SERIX</h1>
+            <p class="text-cyan-400 font-mono text-sm md:text-lg tracking-[0.3em] uppercase mb-12">Build. Scale. Dominate.</p>
+            
+            <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl backdrop-blur-sm max-w-2xl w-full">
+                <h2 class="text-2xl md:text-3xl text-white font-display font-semibold mb-3">Revoluciona tu Clínica Odontológica</h2>
+                <p class="text-slate-400 text-lg">Automatización e Inteligencia Artificial para atención 24/7, agendamiento inteligente y reducción de ausentismo.</p>
+            </div>
+        </div>
+
+        <!-- Slide 1: Problemas -->
+        <div id="slide-1" class="slide flex-col justify-center w-full max-w-6xl mx-auto px-8">
+            <div class="inline-block px-4 py-1 rounded-full bg-red-950/50 border border-red-900 text-red-400 font-mono text-sm mb-6 w-fit">El Estado Actual</div>
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-4">¿Cuántos pacientes pierdes<br/>por <span class="text-red-500">fricción operativa</span>?</h2>
+            <p class="text-slate-400 text-xl mb-12 max-w-3xl">Sin un sistema automatizado, las clínicas odontológicas enfrentan cuellos de botella que cuestan dinero y tiempo todos los días.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl hover:border-red-900/50 transition-all">
+                    <div class="w-14 h-14 bg-red-950 rounded-xl flex items-center justify-center text-red-500 mb-6"><i data-lucide="clock" class="w-8 h-8"></i></div>
+                    <h3 class="text-xl font-display font-bold text-white mb-3">Respuestas Lentas</h3>
+                    <p class="text-slate-400 leading-relaxed">Pacientes buscando valoración que se van con la competencia al no recibir respuesta inmediata en WhatsApp.</p>
+                </div>
+                <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl hover:border-red-900/50 transition-all">
+                    <div class="w-14 h-14 bg-red-950 rounded-xl flex items-center justify-center text-red-500 mb-6"><i data-lucide="calendar" class="w-8 h-8"></i></div>
+                    <h3 class="text-xl font-display font-bold text-white mb-3">Sillas Vacías</h3>
+                    <p class="text-slate-400 leading-relaxed">Alto índice de ausentismo (no-shows) por falta de confirmaciones y recordatorios efectivos 24h antes.</p>
+                </div>
+                <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl hover:border-red-900/50 transition-all">
+                    <div class="w-14 h-14 bg-red-950 rounded-xl flex items-center justify-center text-red-500 mb-6"><i data-lucide="users" class="w-8 h-8"></i></div>
+                    <h3 class="text-xl font-display font-bold text-white mb-3">Recepción Colapsada</h3>
+                    <p class="text-slate-400 leading-relaxed">Tu equipo pierde horas valiosas respondiendo "precio de brackets" y cuadrando horarios manualmente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Solución -->
+        <div id="slide-2" class="slide flex-col justify-center w-full max-w-6xl mx-auto px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-block px-4 py-1 rounded-full bg-cyan-950/50 border border-cyan-900 text-cyan-400 font-mono text-sm mb-6 w-fit">La Solución SERIX</div>
+                    <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-6">La clínica del futuro responde en <span class="text-cyan-400 glow-text">1 segundo</span></h2>
+                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+                        Transformamos tu canal de WhatsApp en una máquina autónoma. Nuestra IA atiende, perfila y agenda pacientes directamente en tu calendario, 24 horas al día, 7 días a la semana.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <div class="w-6 h-6 rounded-full bg-cyan-900 flex items-center justify-center text-cyan-400"><i data-lucide="check" class="w-4 h-4"></i></div>
+                            Cero tiempos de espera para el paciente.
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <div class="w-6 h-6 rounded-full bg-cyan-900 flex items-center justify-center text-cyan-400"><i data-lucide="check" class="w-4 h-4"></i></div>
+                            Integración total con Google Calendar.
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <div class="w-6 h-6 rounded-full bg-cyan-900 flex items-center justify-center text-cyan-400"><i data-lucide="check" class="w-4 h-4"></i></div>
+                            Atención estandarizada y profesional.
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-cyan-500/20 blur-[100px] rounded-full"></div>
+                    <div class="glow-box bg-slate-900 rounded-3xl p-8 relative z-10 flex flex-col items-center justify-center border border-cyan-800">
+                        <i data-lucide="bot" class="text-cyan-400 mb-6 w-20 h-20 drop-shadow-[0_0_15px_rgba(0,229,255,0.5)]"></i>
+                        <h3 class="text-2xl font-display font-bold text-white mb-2 text-center">Asistente IA Dental</h3>
+                        <div class="flex items-center gap-2 text-cyan-500 text-sm font-mono bg-cyan-950/50 px-4 py-2 rounded-full mt-4">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Sistema en línea 24/7
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Funciones IA -->
+        <div id="slide-3" class="slide flex-col justify-center w-full max-w-6xl mx-auto px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-4">¿Qué hace tu Asistente Inteligente?</h2>
+                <p class="text-slate-400 text-xl">Tu nuevo recepcionista digital con superpoderes.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex gap-6 bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+                    <div class="w-14 h-14 shrink-0 bg-cyan-950/50 rounded-xl flex items-center justify-center text-cyan-400 border border-cyan-900/50"><i data-lucide="message-square" class="w-6 h-6"></i></div>
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-2">Atención Inicial y FAQs</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">Responde automáticamente preguntas sobre precios, ubicación, horarios y tratamientos disponibles.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6 bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+                    <div class="w-14 h-14 shrink-0 bg-cyan-950/50 rounded-xl flex items-center justify-center text-cyan-400 border border-cyan-900/50"><i data-lucide="calendar" class="w-6 h-6"></i></div>
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-2">Agenda Automática</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">Muestra disponibilidad real y agenda la cita directamente en tu Google Calendar sin intervención humana.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6 bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+                    <div class="w-14 h-14 shrink-0 bg-cyan-950/50 rounded-xl flex items-center justify-center text-cyan-400 border border-cyan-900/50"><i data-lucide="check-circle" class="w-6 h-6"></i></div>
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-2">Confirmación y Recordatorios</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">Envía mensajes proactivos 24h antes de la cita para confirmar asistencia y reducir el ausentismo.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6 bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+                    <div class="w-14 h-14 shrink-0 bg-cyan-950/50 rounded-xl flex items-center justify-center text-cyan-400 border border-cyan-900/50"><i data-lucide="database" class="w-6 h-6"></i></div>
+                    <div>
+                        <h3 class="text-xl font-display font-bold text-white mb-2">Captura de Datos</h3>
+                        <p class="text-slate-400 leading-relaxed text-sm">Recopila el nombre, motivo de consulta e historial básico antes de que el paciente llegue al consultorio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Flujo WhatsApp -->
+        <div id="slide-4" class="slide flex-col justify-center w-full max-w-6xl mx-auto px-8">
+            <h2 class="font-display font-bold text-4xl text-white mb-10 text-center">Una experiencia <span class="text-cyan-400">sin fricción</span></h2>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-16 justify-center">
+                
+                <!-- Pasos -->
+                <div class="space-y-8 flex-1 max-w-md">
+                    <div class="flex gap-4 items-start">
+                        <div class="text-cyan-500 font-mono font-bold text-xl mt-1 opacity-50">01</div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg">Contacto</h4>
+                            <p class="text-slate-400 text-sm">El paciente envía un mensaje de WhatsApp.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="text-cyan-500 font-mono font-bold text-xl mt-1 opacity-50">02</div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg">Perfilamiento</h4>
+                            <p class="text-slate-400 text-sm">La IA saluda y filtra el tipo de atención (urgencia, valoración, control).</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="text-cyan-500 font-mono font-bold text-xl mt-1 opacity-50">03</div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg">Agendamiento</h4>
+                            <p class="text-slate-400 text-sm">Ofrece horarios disponibles y sincroniza con Google Calendar.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="text-cyan-500 font-mono font-bold text-xl mt-1 opacity-50">04</div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg">Recordatorio</h4>
+                            <p class="text-slate-400 text-sm">Mensaje automático 24h antes de la cita.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup Chat -->
+                <div class="w-[320px] h-[550px] border-[6px] border-slate-800 rounded-[3rem] bg-slate-950 relative shadow-[0_0_40px_rgba(0,229,255,0.15)] flex flex-col overflow-hidden shrink-0">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-800 rounded-b-2xl z-20"></div>
+                    
+                    <div class="bg-slate-900 pt-8 pb-3 px-4 border-b border-slate-800 flex items-center gap-3 shadow-md z-10">
+                        <div class="w-10 h-10 rounded-full bg-cyan-900 border border-cyan-500 flex items-center justify-center shrink-0">
+                            <i data-lucide="bot" class="text-cyan-400 w-5 h-5"></i>
+                        </div>
+                        <div class="leading-tight">
+                            <div class="text-white font-bold text-sm">Clínica DentalCare</div>
+                            <div class="text-cyan-400 text-[10px] flex items-center gap-1"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span>IA en línea</div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 p-4 flex flex-col gap-4 overflow-y-auto chat-scroll bg-[#0a0f14]">
+                        <div class="self-end bg-slate-800 text-white p-3 rounded-2xl rounded-tr-sm max-w-[85%] text-sm shadow-sm">
+                            Hola, necesito una cita para blanqueamiento dental.
+                        </div>
+                        <div class="self-start bg-cyan-950/40 border border-cyan-900/50 text-cyan-50 p-3 rounded-2xl rounded-tl-sm max-w-[90%] text-sm shadow-sm">
+                            ¡Hola! 👋 Bienvenido a DentalCare. Soy el asistente virtual.
+                            <br/><br/>
+                            El blanqueamiento tiene un costo de $100 USD. Tengo disponibilidad mañana a las <strong>10:00 AM</strong> o <strong>4:00 PM</strong>. ¿Qué horario prefieres?
+                        </div>
+                        <div class="self-end bg-slate-800 text-white p-3 rounded-2xl rounded-tr-sm max-w-[85%] text-sm shadow-sm">
+                            A las 10 am por favor.
+                        </div>
+                        <div class="self-start bg-cyan-950/40 border border-cyan-900/50 text-cyan-50 p-3 rounded-2xl rounded-tl-sm max-w-[90%] text-sm shadow-sm">
+                            ¡Excelente! 🦷 Tu cita ha sido agendada para mañana a las 10:00 AM. 
+                            <br/><br/>
+                            Te enviaré un recordatorio 24 horas antes. ¡Te esperamos!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Beneficios y ROI -->
+        <div id="slide-5" class="slide flex-col justify-center w-full max-w-6xl mx-auto px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-4">Impacto directo en tu rentabilidad</h2>
+                <p class="text-slate-400 text-xl">La automatización no es un gasto, es tu mejor herramienta de ventas.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-8 bg-slate-900/50 border border-slate-800 rounded-3xl relative overflow-hidden group hover:border-cyan-500/50 transition-all">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 group-hover:opacity-100 transition-all"></div>
+                    <div class="font-display font-bold text-6xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-4">+40%</div>
+                    <h3 class="text-xl text-white font-bold mb-2">Citas Concretadas</h3>
+                    <p class="text-slate-400 text-sm">Al responder en segundos, evitas que el paciente busque otra clínica.</p>
+                </div>
+                <div class="text-center p-8 bg-slate-900/50 border border-slate-800 rounded-3xl relative overflow-hidden group hover:border-cyan-500/50 transition-all">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 group-hover:opacity-100 transition-all"></div>
+                    <div class="font-display font-bold text-6xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-4">-85%</div>
+                    <h3 class="text-xl text-white font-bold mb-2">Ausentismo</h3>
+                    <p class="text-slate-400 text-sm">Los recordatorios automáticos aseguran que tu silla dental no quede vacía.</p>
+                </div>
+                <div class="text-center p-8 bg-slate-900/50 border border-slate-800 rounded-3xl relative overflow-hidden group hover:border-cyan-500/50 transition-all">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 group-hover:opacity-100 transition-all"></div>
+                    <div class="font-display font-bold text-6xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-4">100%</div>
+                    <h3 class="text-xl text-white font-bold mb-2">Tiempo Liberado</h3>
+                    <p class="text-slate-400 text-sm">Tu recepción se enfoca en atender a los presentes, no en chatear.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Servicios Incluidos -->
+        <div id="slide-6" class="slide flex-col justify-center w-full max-w-5xl mx-auto px-8">
+            <h2 class="font-display font-bold text-4xl text-white mb-10 border-b border-slate-800 pb-6 flex items-center gap-4">
+                <i data-lucide="shield" class="text-cyan-400 w-10 h-10"></i>
+                Ecosistema SERIX
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                <!-- Generado estáticamente en lugar de map para vanilla HTML -->
+                <div class="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                    <div class="w-8 h-8 rounded-full bg-cyan-900/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle" class="text-cyan-400 w-5 h-5"></i></div>
+                    <span class="text-slate-200">Automatización completa de WhatsApp API</span>
+                </div>
+                <div class="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                    <div class="w-8 h-8 rounded-full bg-cyan-900/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle" class="text-cyan-400 w-5 h-5"></i></div>
+                    <span class="text-slate-200">Integración bidireccional con Google Calendar</span>
+                </div>
+                <div class="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                    <div class="w-8 h-8 rounded-full bg-cyan-900/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle" class="text-cyan-400 w-5 h-5"></i></div>
+                    <span class="text-slate-200">Desarrollo y entrenamiento de IA personalizada</span>
+                </div>
+                <div class="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                    <div class="w-8 h-8 rounded-full bg-cyan-900/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle" class="text-cyan-400 w-5 h-5"></i></div>
+                    <span class="text-slate-200">Flujo de agendamiento y confirmación automática</span>
+                </div>
+                <div class="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                    <div class="w-8 h-8 rounded-full bg-cyan-900/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle" class="text-cyan-400 w-5 h-5"></i></div>
+                    <span class="text-slate-200">Módulo de mensajes y recordatorios automatizados</span>
+                </div>
+                <div class="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                    <div class="w-8 h-8 rounded-full bg-cyan-900/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle" class="text-cyan-400 w-5 h-5"></i></div>
+                    <span class="text-slate-200">Captura y gestión de datos de pacientes</span>
+                </div>
+                <div class="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                    <div class="w-8 h-8 rounded-full bg-cyan-900/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle" class="text-cyan-400 w-5 h-5"></i></div>
+                    <span class="text-slate-200">Respuestas a preguntas frecuentes (FAQs)</span>
+                </div>
+                <div class="flex items-center gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                    <div class="w-8 h-8 rounded-full bg-cyan-900/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle" class="text-cyan-400 w-5 h-5"></i></div>
+                    <span class="text-slate-200">Soporte técnico, mantenimiento y actualizaciones</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Planes -->
+        <div id="slide-7" class="slide flex-col justify-center w-full max-w-6xl mx-auto px-4 md:px-8">
+            <div class="text-center mb-10">
+                <h2 class="font-display font-bold text-4xl text-white mb-2">Planes de Inversión</h2>
+                <p class="text-slate-400">Escala tu clínica con la tecnología adecuada.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <!-- Plan Básico -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+                    <h3 class="text-xl text-white font-bold mb-2">Plan Básico</h3>
+                    <p class="text-slate-500 text-sm mb-6 h-10">Ideal para consultorios independientes.</p>
+                    <div class="mb-6">
+                        <div class="flex items-end gap-1 mb-1">
+                            <span class="text-4xl font-bold text-white">$40</span>
+                            <span class="text-slate-400 text-sm mb-1">USD/mes</span>
+                        </div>
+                        <div class="text-sm text-cyan-500 font-mono">+ $120 USD Setup Único</div>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-slate-300">
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> Respuestas automáticas (FAQs)</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> Captura de datos inicial</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> Agendamiento manual asistido</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> Soporte por correo</li>
+                    </ul>
+                </div>
+
+                <!-- Plan Profesional -->
+                <div class="glow-box-strong bg-slate-900 rounded-3xl p-8 transform md:scale-105 relative z-10">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-cyan-500 text-slate-900 text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
+                        Recomendado
+                    </div>
+                    <h3 class="text-2xl text-cyan-400 font-bold mb-2">Plan Profesional</h3>
+                    <p class="text-slate-400 text-sm mb-6 h-10">Automatización total de agenda y confirmaciones.</p>
+                    <div class="mb-6">
+                        <div class="flex items-end gap-1 mb-1">
+                            <span class="text-5xl font-bold text-white">$80</span>
+                            <span class="text-slate-400 text-sm mb-2">USD/mes</span>
+                        </div>
+                        <div class="text-sm text-cyan-400 font-mono glow-text">+ $250 USD Setup Único</div>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-slate-200">
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-400 shrink-0 w-5 h-5"></i> <strong>Todo lo del plan Básico</strong></li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-400 shrink-0 w-5 h-5"></i> Integración con Google Calendar</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-400 shrink-0 w-5 h-5"></i> IA Conversacional Avanzada</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-400 shrink-0 w-5 h-5"></i> Recordatorios 24h automáticos</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-400 shrink-0 w-5 h-5"></i> Soporte prioritario WhatsApp</li>
+                    </ul>
+                </div>
+
+                <!-- Plan Premium -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+                    <h3 class="text-xl text-white font-bold mb-2">Plan Premium</h3>
+                    <p class="text-slate-500 text-sm mb-6 h-10">Para clínicas grandes con múltiples especialistas.</p>
+                    <div class="mb-6">
+                        <div class="flex items-end gap-1 mb-1">
+                            <span class="text-4xl font-bold text-white">$150</span>
+                            <span class="text-slate-400 text-sm mb-1">USD/mes</span>
+                        </div>
+                        <div class="text-sm text-cyan-500 font-mono">+ $500 USD Setup Único</div>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-slate-300">
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> <strong>Todo lo del plan Profesional</strong></li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> Agendas multi-doctor</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> Mensajes post-cita</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> Volumen alto de chats</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="text-cyan-500 shrink-0 w-4 h-4"></i> Asesor de cuenta dedicado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: CTA -->
+        <div id="slide-8" class="slide flex-col items-center justify-center text-center w-full max-w-4xl mx-auto px-4 relative">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent -z-10"></div>
+            
+            <img src="logoSerix.png" alt="logoSerix" style="width: 300px;">
+            
+            <h2 class="font-display font-bold text-5xl md:text-6xl text-white mb-6">El momento de escalar <span class="text-cyan-400">es ahora</span></h2>
+            <p class="text-slate-300 text-xl md:text-2xl mb-12 max-w-2xl leading-relaxed">
+                Mientras la competencia sigue respondiendo manual, tu clínica puede estar agendando pacientes 24/7 en piloto automático.
+            </p>
+            
+            <button class="glow-box-strong bg-cyan-500 text-slate-950 font-display font-bold text-xl px-10 py-5 rounded-full hover:bg-cyan-400 hover:scale-105 transition-all flex items-center gap-3 shadow-[0_0_30px_rgba(0,229,255,0.4)] cursor-pointer">
+                Agendar Implementación <i data-lucide="arrow-right"></i>
+            </button>
+            
+            <p class="mt-12 font-mono text-cyan-500/50 tracking-[0.3em] uppercase">SERIX - Build. Scale. Dominate.</p>
+        </div>
+
+        <!-- Slide 9: Cierre -->
+        <div id="slide-9" class="slide flex-col items-center justify-center text-center w-full h-full bg-black">
+            <img src="logoSerix.png" alt="logoSerix" style="width: 300px;">
+            <h1 class="font-display font-bold text-6xl tracking-[0.2em] text-white glow-text mb-4">SERIX</h1>
+            <p class="text-slate-500 text-xl">Innovación en Automatización e IA.</p>
+        </div>
+
+    </main>
+
+    <!-- Footer Controls -->
+    <footer class="p-6 z-20 relative flex justify-between items-center bg-gradient-to-t from-[#030712] to-transparent shrink-0">
+        <div class="text-xs text-cyan-900 font-mono tracking-widest uppercase hidden md:block">
+            Build. Scale. Dominate.
+        </div>
+        <div class="flex gap-4 ml-auto">
+            <button id="btn-prev" onclick="prevSlide()" class="p-3 md:p-4 rounded-full bg-slate-900 border border-slate-800 hover:border-cyan-500 hover:text-cyan-400 hover:bg-slate-800 disabled:opacity-20 disabled:hover:border-slate-800 disabled:cursor-not-allowed transition-all">
+                <i data-lucide="chevron-left" class="w-6 h-6"></i>
+            </button>
+            <button id="btn-next" onclick="nextSlide()" class="p-3 md:p-4 rounded-full bg-slate-900 border border-slate-800 hover:border-cyan-500 hover:text-cyan-400 disabled:opacity-20 transition-all glow-box">
+                <i data-lucide="chevron-right" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Lógica de la Presentación -->
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        let currentSlide = 0;
+        const totalSlides = 10;
+        
+        function updateUI() {
+            // Actualizar Slides
+            document.querySelectorAll('.slide').forEach((el, index) => {
+                if (index === currentSlide) {
+                    el.classList.add('active', 'slide-enter');
+                } else {
+                    el.classList.remove('active', 'slide-enter');
+                }
+            });
+
+            // Actualizar Progreso
+            document.getElementById('progress-bar').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+            document.getElementById('slide-indicator').innerText = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Actualizar Botones
+            document.getElementById('btn-prev').disabled = currentSlide === 0;
+            document.getElementById('btn-next').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        // Control por teclado
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Pantalla Completa
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        // Iniciar
+        updateUI();
+    </script>
+</body>
+</html>
